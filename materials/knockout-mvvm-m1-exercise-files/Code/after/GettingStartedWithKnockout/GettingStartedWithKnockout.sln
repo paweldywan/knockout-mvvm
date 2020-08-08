@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GettingStartedWithKnockout", "GettingStartedWithKnockout\GettingStartedWithKnockout.csproj", "{C8452CBA-BE51-4875-849D-2E58C70B3EB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8452CBA-BE51-4875-849D-2E58C70B3EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8452CBA-BE51-4875-849D-2E58C70B3EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8452CBA-BE51-4875-849D-2E58C70B3EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8452CBA-BE51-4875-849D-2E58C70B3EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {334D85DE-4295-475B-8578-5A1CBF4B4376}
+	EndGlobalSection
+EndGlobal
