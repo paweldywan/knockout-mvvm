@@ -54,6 +54,19 @@
             ///////////////////////////////////////////////////
             // read/write computed
             ///////////////////////////////////////////////////
+            my.vm.extendedPrice = ko.computed({
+                read: function () {
+                    var extPrice = this.product() ? this.product().salePrice() * parseInt("0" + this.quantity(), 10) : 0;
+                    return '$' + extPrice.toFixed(2)
+                },
+                write: function (value) {
+                    value = parseFloat(value.replace(/[^\.\d]/g, ""));
+                    value = isNaN(value) ? 0 : value;
+                    var unitPrice = value / this.quantity();
+                    this.product().salePrice(unitPrice);
+                },
+                owner: my.vm
+            });
 
             ko.applyBindings(my.vm);
         });
@@ -88,7 +101,7 @@
                     </div>
                     <div>
                         <span class="caption">Ext. Price:</span>
-
+                        <input data-bind="value: extendedPrice, valueUpdate: 'afterkeydown'" />
                     </div>
                 </div>
         </div>
