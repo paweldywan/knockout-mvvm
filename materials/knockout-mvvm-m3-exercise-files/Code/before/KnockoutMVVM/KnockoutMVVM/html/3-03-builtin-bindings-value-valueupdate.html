@@ -48,40 +48,70 @@
 		</div>
 		<div id="main">
 			<div class="controlsPanel">
-			<table>
-				<thead>
+				<table>
+					<thead>
+						<tr>
+							<td>Bindings</td>
+							<td>Target Value</td>
+							<td>Source Value(s)</td>
+						</tr>
+					</thead>
+					<!--Basics-->
+					<!--Text, Html-->
+
 					<tr>
-						<td>Bindings</td>
-						<td>Target Value</td>
-						<td>Source Value(s)</td>
+						<td>
+							<div class="caption">text</div>
+						</td>
+						<td><span data-bind="text: model.code"></span></td>
+						<td><span data-bind="text: model.code"></span></td>
 					</tr>
-				</thead>
-				<!--Basics-->
 
-                <!--Text, Html-->
+					<!--Input bindings and form fields-->
+					<!--Value, valueUpdate-->
+					<tr>
+						<td>
+							<div class="caption">value</div>
+							<div class="notes">text input</div>
+						</td>
+						<td><input type="text" data-bind="value: model.code" /></td>
+						<td><span>model.code: </span><span data-bind="text: model.code"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="caption">value (valueUpdate)</div>
+							<div class="notes">text input (change)</div>
+						</td>
+						<td><input type="text" data-bind="value: salePrice, valueUpdate: 'change'" /></td>
+						<td><span>salePrice: </span><span data-bind="text: salePrice"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="caption">value (valueUpdate)</div>
+							<div class="notes">text input (afterkeydown)</div>
+						</td>
+						<td><input type="text" data-bind="value: salePrice, valueUpdate: 'afterkeydown'" /></td>
+						<td><span>salePrice: </span><span data-bind="text: salePrice"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="caption">value (valueUpdate)</div>
+							<div class="notes">text input (keyup)</div>
+						</td>
+						<td><input type="text" data-bind="value: salePrice, valueUpdate: 'keyup'" /></td>
+						<td><span>salePrice: </span><span data-bind="text: salePrice"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="caption">value (valueUpdate)</div>
+							<div class="notes">text input (keypress)</div>
+						</td>
+						<td><input type="text" data-bind="value: salePrice, valueUpdate: 'keypress'" /></td>
+						<td><span>salePrice: </span><span data-bind="text: salePrice"></span></td>
+					</tr>
 
-				<tr>
-					<td>
-						<div class="caption">text</div>
-					</td>
-					<td><span data-bind="text: model.code"></span></td>
-					<td><span data-bind="text: model.code"></span></td>
-				</tr>
 
-				<!--Input bindings and form fields-->
-
-                <!--Value, valueUpdate-->
-				<tr>
-					<td>
-						<div class="caption">value</div>
-						<div class="notes">text input</div>
-					</td>
-					<td><input type="text" data-bind="value: model.code"/></td>
-					<td><span>model.code: </span><span data-bind="text: model.code"></span></td>
-				</tr>
-
-
-			</table>
+				</table>
 			</div>
 		</div>
 		<div class="topics">
