@@ -29,10 +29,10 @@
 	            },
 
 	            // value & valueUpdate				
-	            salePrice: ko.observable(1995)
+	            salePrice: ko.observable(1995),
 
 	            // css and style
-
+				profit: ko.observable(-7000)
 	        };
 	        ko.applyBindings(my.viewmodel);
 	    });
@@ -50,42 +50,54 @@
 		</div>
 		<div id="main">
 			<div class="controlsPanel">
-			<table>
-				<thead>
+				<table>
+					<thead>
+						<tr>
+							<td>Bindings</td>
+							<td>Target Value</td>
+							<td>Source Value(s)</td>
+						</tr>
+					</thead>
+					<!--Basics-->
+					<!--Text, Html-->
+
 					<tr>
-						<td>Bindings</td>
-						<td>Target Value</td>
-						<td>Source Value(s)</td>
+						<td>
+							<div class="caption">text</div>
+						</td>
+						<td><span data-bind="text: model.code"></span></td>
+						<td><span data-bind="text: model.code"></span></td>
 					</tr>
-				</thead>
-				<!--Basics-->
 
-                <!--Text, Html-->
+					<!--Input bindings and form fields-->
+					<!--Value, valueUpdate-->
+					<tr>
+						<td>
+							<div class="caption">value</div>
+							<div class="notes">text input</div>
+						</td>
+						<td><input type="text" data-bind="value: model.code" /></td>
+						<td><span>model.code: </span><span data-bind="text: model.code"></span></td>
+					</tr>
 
-				<tr>
-					<td>
-						<div class="caption">text</div>
-					</td>
-					<td><span data-bind="text: model.code"></span></td>
-					<td><span data-bind="text: model.code"></span></td>
-				</tr>
+					<!--Appearance-->
+					<!-- css and style-->
+					<tr>
+						<td>
+							<div class="caption">style</div>
+						</td>
+						<td><input type="text" data-bind="value: profit, style: {color: profit() < 0 ? 'red' : 'green'}" /></td>
+						<td><span>profit < 0: </span><span data-bind="text: profit() < 0 ? 'red' : 'green'"></span></td>
+					</tr>
 
-				<!--Input bindings and form fields-->
-
-                <!--Value, valueUpdate-->
-				<tr>
-					<td>
-						<div class="caption">value</div>
-						<div class="notes">text input</div>
-					</td>
-					<td><input type="text" data-bind="value: model.code"/></td>
-					<td><span>model.code: </span><span data-bind="text: model.code"></span></td>
-				</tr>
-
-				<!--Appearance-->
-                <!-- css and style-->
-
-			</table>
+					<tr>
+						<td>
+							<div class="caption">css</div>
+						</td>
+						<td><input type="text" data-bind="value: profit, css: {negative: profit() < 0, positive: !(profit() < 0)}" /></td>
+						<td><span>profit < 0: </span><span data-bind="text: profit() < 0 ? 'negative' : 'positive'"></span></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div class="topics">

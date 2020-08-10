@@ -29,9 +29,14 @@
 	            },
 			    
                 // value & valueUpdate				
-				salePrice: ko.observable(1995)
+				salePrice: ko.observable(1995),
                 
 				// checkboxes and radio buttons
+				isInStock: ko.observable(true),
+				selectedColorForRadio: ko.observable(),
+				colors: [{ key: "BR", name: "Brown" },
+						{ key: "BL", name: "Blue" },
+						{ key: "BK", name: "Black" }]
 
 			};
 			ko.applyBindings(my.viewmodel);
@@ -100,7 +105,7 @@
 					</td>
 					<td>
 						<input type="radio" value="BR" data-bind="checked: selectedColorForRadio" /><span>brown</span>
-						<input type="radio" value="BU" data-bind="checked: selectedColorForRadio" /><span>blue</span>
+						<input type="radio" value="BL" data-bind="checked: selectedColorForRadio" /><span>blue</span>
 						<input type="radio" value="BK" data-bind="checked: selectedColorForRadio" /><span>black</span>
 					</td>
 					<td><span>selectedColorForRadio: </span><span data-bind="text: selectedColorForRadio"></span></td>
