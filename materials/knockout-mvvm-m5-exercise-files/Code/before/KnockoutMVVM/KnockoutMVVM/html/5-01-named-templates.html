@@ -36,7 +36,7 @@
                                 <td style="width: 50px;" data-bind="if: product">
                                     <div>
                                         <img data-bind="attr: {src: product().photoUrl, alt:product().shortDesc, title:product().shortDesc}"
-                                            class="photoThumbnail" />
+                                             class="photoThumbnail" />
                                     </div>
                                     <div>
                                         <div data-bind="text: product().model().brand" class="textValues">
@@ -51,7 +51,7 @@
                                 </td>
                                 <td style="width: 100px;">
                                     <input data-bind="visible: product, value: quantity, valueUpdate: 'afterkeydown'"
-                                        class="integerInput" />
+                                           class="integerInput" />
                                 </td>
                                 <td style="width: 100px;">
                                     <span data-bind="visible: product, text: my.formatCurrency(extendedPrice())" class="textValues">
@@ -63,16 +63,19 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <span data-bind="text: lines().length"></span><span>item(s) in your shopping cart</span>
-                        <p data-bind="if: lines().length > 0">
-                            Total value: <span data-bind="text: my.formatCurrency(grandTotal())"></span>
-                        </p>
-                        <button data-bind="click: addLine">Add product</button>
+                    <div data-bind="template: {name: 'totalsTmpl'}">
                     </div>
                 </div>
             </div>
         </div>
+        <script type="text/html" id="totalsTmpl">
+            <span data-bind="text: lines().length"></span>
+            <span>item(s) in your shopping cart</span>
+            <p data-bind="if: lines().length > 0">
+                Total value: <span data-bind="text: my.formatCurrency(grandTotal())"></span>
+            </p>
+            <button data-bind="click: addLine">Add product</button>
+        </script>
         <div class="topics">
             <span>Explores:</span>
             <ul>

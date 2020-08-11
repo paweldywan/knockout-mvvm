@@ -63,13 +63,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>
-                        <span data-bind="text: lines().length"></span><span>item(s) in your shopping cart</span>
-                        <p data-bind="if: lines().length > 0">
-                            Total value: <span data-bind="text: my.formatCurrency(grandTotal())"></span>
-                        </p>
-                        <button data-bind="click: addLine">
-                            Add product</button>
+                    <div data-bind="template: {name: 'totalsTmpl'}">
                     </div>
                 </div>
             </div>
@@ -98,6 +92,15 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <div id="totalsTmpl" style="display: none">
+        <span data-bind="text: lines().length"></span><span>item(s) in your shopping cart</span>
+        <p data-bind="if: lines().length > 0">
+            Total value: <span data-bind="text: my.formatCurrency(grandTotal())"></span>
+        </p>
+        <button data-bind="click: addLine">
+            Add product
+        </button>
     </div>
 </body>
 </html>
