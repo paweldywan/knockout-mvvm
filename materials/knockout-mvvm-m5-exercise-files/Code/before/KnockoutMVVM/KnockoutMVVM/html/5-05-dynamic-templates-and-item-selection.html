@@ -30,7 +30,7 @@
                     <li data-bind="css: { selected: isSelected}" class="selectable">
                         <div data-bind="text: shortDesc, click:$root.selectProduct">
                         </div>
-                   </li>
+                    </li>
                 </ul>
             </div>
             <div data-bind="if: selectedProduct()" class="leftFloat">
@@ -38,7 +38,7 @@
                     <div>
                         <input type="checkbox" data-bind="checked: showDetails" /><span>Expand Details</span>
                     </div>
-                    <div data-bind="template: {name: 'productSummary'}">
+                    <div data-bind="template: {name: productView}">
                     </div>
                     <script id="productSummary" type="text/html">
                         <div data-bind="with: selectedProduct().model">
@@ -68,15 +68,16 @@
                                 </span>
                             </div>
                             <div>
-                                <span>Description:</span></div>
+                                <span>Description:</span>
+                            </div>
                             <div>
                                 <span data-bind="text: description" class="textValues"></span>
                             </div>
                         </div>
                     </script>
                 </div>
-    </div>
-    </div>
+            </div>
+        </div>
         <div class="topics">
             <span>Explores:</span>
             <ul>
