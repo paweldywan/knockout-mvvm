@@ -1,4 +1,4 @@
-﻿var my = { }; //my namespace
+﻿var my = my || { }; //my namespace
 my.sampleData = (function (my) {    
     "use strict";
     var data = { Products: [

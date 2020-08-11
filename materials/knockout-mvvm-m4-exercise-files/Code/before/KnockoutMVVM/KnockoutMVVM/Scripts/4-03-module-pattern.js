@@ -31,9 +31,9 @@
     };
 
     // The ViewModel
-    my.vm = function () {
+    my.vm = (function () {
         var products = ko.observableArray([]);
-        //var privateVal = 3;
+        var privateVal = 3;
         return {
             metadata: {
                 pageTitle: "Knockout: Module Pattern",
@@ -44,9 +44,9 @@
             },
             products: products,
             lines: ko.observableArray([new my.LineItem()]),
-            //publicVal: 7,
+            publicVal: 7,
             addLine: function () {
-                //alert(this.publicVal + privateVal);
+                alert(this.publicVal + privateVal);
                 //PAPA:  'this' will work here
                 //my.vm.lines.push(new my.LineItem());
                 var v = this;
@@ -83,7 +83,7 @@
             //                // Passing in the 'owner' as the VM will not work because it does not exist yet
             //            }, my.vm)
         };
-    } ();
+    })();
 
     // Computed observable function. 
     // We append it to the ViewModel here.
