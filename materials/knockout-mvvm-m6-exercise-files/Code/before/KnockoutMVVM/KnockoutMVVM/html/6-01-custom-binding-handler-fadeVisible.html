@@ -9,6 +9,7 @@
     <script src="/scripts/koExternalTemplateEngine_all.js" type="text/javascript"></script>
     <script src="/js/data.js" type="text/javascript"></script>
     <script src="/js/utils.js" type="text/javascript"></script>
+    <script src="/js/binding-handlers.js" type="text/javascript"></script>
     <script src="/js/6-01-custom-binding-handlers-fadeVisible.js" type="text/javascript"></script>
 </head>
 <body>
@@ -31,9 +32,9 @@
                 </table>
             </div>
             <!-- ko if: selectedProduct() -->
-            <div class="leftFloat" >
+            <div class="leftFloat" data-bind="fadeVisible: canShowDetails(), fadeDuration: 2000">
                 <div class="productDetailsArea">
-                    <!-- ko template: {name: 'productDetails', data: selectedProduct} -->
+                    <!-- ko template: {name: 'productDetailsWithFade', data: selectedProduct} -->
                     <!-- /ko -->
                 </div>
             </div>

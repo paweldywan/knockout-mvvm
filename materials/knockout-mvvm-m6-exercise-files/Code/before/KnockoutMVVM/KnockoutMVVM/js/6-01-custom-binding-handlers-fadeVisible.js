@@ -37,13 +37,13 @@
         self.isGuitar = ko.computed(function () {
             return this.category() ? this.category().id() === 1 : false;
         }, self),
-        //this.shortDescription = ko.observable();
-        self.shortDesc = ko.computed(function () {
-            return this.model() ? this.model().brand() + " " + this.model().name() : "";
-        }, self),
-        self.photoUrl = ko.computed(function () {
-            return photoPath + this.photo();
-        }, self);
+            //this.shortDescription = ko.observable();
+            self.shortDesc = ko.computed(function () {
+                return this.model() ? this.model().brand() + " " + this.model().name() : "";
+            }, self),
+            self.photoUrl = ko.computed(function () {
+                return photoPath + this.photo();
+            }, self);
     };
 
     // The ViewModel
@@ -55,23 +55,26 @@
                 text: "@john_papa"
             },
             topics: [{ desc: "external templates" },
-                { desc: "containerless templates" },
-                { desc: "array filtering" },
-                { desc: "item selection, within an observable array" },
-                { desc: "$root and $parent" },
-                { desc: "foreach" },
-                { desc: "if" },
-                { desc: "custom binding handler: fadeVisible"}]
+            { desc: "containerless templates" },
+            { desc: "array filtering" },
+            { desc: "item selection, within an observable array" },
+            { desc: "$root and $parent" },
+            { desc: "foreach" },
+            { desc: "if" },
+            { desc: "custom binding handler: fadeVisible" }]
         },
             products = ko.observableArray([]),
             selectedProduct = ko.observable(),
-            
+            canShowDetails = ko.observable(false),
+            closeDetails = function () {
+                canShowDetails(false);
+            },
             sortFunction = function (a, b) {
                 return a.shortDesc().toLowerCase() > b.shortDesc().toLowerCase() ? 1 : -1;
             },
             selectProduct = function (p) {
                 selectedProduct(p);
-                
+                canShowDetails(true);
             },
             productsToShow = ko.computed(function () {
                 return ko.utils.arrayFilter(products(), function (p) {
@@ -85,17 +88,17 @@
                         .salePrice(p.SalePrice)
                         .photo(p.Photo)
                         .category(new my.Category()
-                        .id(p.Category.Id)
-                        .name(p.Category.Name)
-                            )
+                            .id(p.Category.Id)
+                            .name(p.Category.Name)
+                        )
                         .model(new my.Model()
-                        .id(p.Model.Id)
-                        .name(p.Model.Name)
-                        .brand(p.Model.Brand)
-                            )
+                            .id(p.Model.Id)
+                            .name(p.Model.Name)
+                            .brand(p.Model.Brand)
+                        )
                         .description(p.Description)
                         .rating(p.Rating)
-                );
+                    );
                 });
                 products().sort(sortFunction);
             };
@@ -104,9 +107,11 @@
             selectedProduct: selectedProduct,
             selectProduct: selectProduct,
             productsToShow: productsToShow,
-            loadProducts: loadProducts
+            loadProducts: loadProducts,
+            canShowDetails: canShowDetails,
+            closeDetails: closeDetails
         };
-    } ();
+    }();
 
     my.vm.loadProducts();
     ko.applyBindings(my.vm);
