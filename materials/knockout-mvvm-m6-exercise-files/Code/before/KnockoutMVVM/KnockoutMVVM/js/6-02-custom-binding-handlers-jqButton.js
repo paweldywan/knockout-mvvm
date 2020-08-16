@@ -34,16 +34,24 @@
         self.isSelected = ko.computed(function () {
             return selectedItem() === self;
         });
-        self.isGuitar = ko.computed(function() {
+        self.isGuitar = ko.computed(function () {
             return this.category() ? this.category().id() === 1 : false;
-        }, self),
+        }, self);
         //this.shortDescription = ko.observable();
-        self.shortDesc = ko.computed(function() {
+        self.shortDesc = ko.computed(function () {
             return this.model() ? this.model().brand() + " " + this.model().name() : "";
-        }, self),
-        self.photoUrl = ko.computed(function() {
+        }, self);
+        self.photoUrl = ko.computed(function () {
             return photoPath + this.photo();
         }, self);
+        self.rating.subscribe(function () {
+            this.stateHasChanged(true);
+        }, self);
+        self.stateHasChanged = ko.observable(false);
+        self.save = function () {
+            alert("new rating of " + self.rating() + " saved");
+            self.stateHasChanged(false);
+        }
     };
 
     // The ViewModel
@@ -55,13 +63,13 @@
                 text: "@john_papa"
             },
             topics: [{ desc: "external templates" },
-                { desc: "containerless templates" },
-                { desc: "array filtering" },
-                { desc: "item selection, within an observable array" },
-                { desc: "$root and $parent" },
-                { desc: "foreach" },
-                { desc: "if" },
-                { desc: "custom binding handler: fadeVisible"}]
+            { desc: "containerless templates" },
+            { desc: "array filtering" },
+            { desc: "item selection, within an observable array" },
+            { desc: "$root and $parent" },
+            { desc: "foreach" },
+            { desc: "if" },
+            { desc: "custom binding handler: fadeVisible" }]
         },
             products = ko.observableArray([]),
             selectedProduct = ko.observable(),
@@ -88,18 +96,18 @@
                         .salePrice(p.SalePrice)
                         .photo(p.Photo)
                         .category(new my.Category()
-                        .id(p.Category.Id)
-                        .name(p.Category.Name)
-                            )
+                            .id(p.Category.Id)
+                            .name(p.Category.Name)
+                        )
                         .model(new my.Model()
-                        .id(p.Model.Id)
-                        .name(p.Model.Name)
-                        .brand(p.Model.Brand)
-                            )
+                            .id(p.Model.Id)
+                            .name(p.Model.Name)
+                            .brand(p.Model.Brand)
+                        )
                         .description(p.Description)
                         .rating(p.Rating)
                         .stateHasChanged(false)
-                );
+                    );
                 });
                 products().sort(sortFunction);
             };
@@ -112,7 +120,7 @@
             closeDetails: closeDetails,
             canShowDetails: canShowDetails
         };
-    } ();
+    }();
 
     my.vm.loadProducts();
     ko.applyBindings(my.vm);
