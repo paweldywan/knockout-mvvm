@@ -199,6 +199,7 @@
     <Content Include="scripts\jquery-ui-1.8.17.min.js" />
     <Content Include="scripts\jquery-ui.js" />
     <Content Include="scripts\jquery-ui.min.js" />
+    <Content Include="scripts\knockout.changetracker.js" />
     <Content Include="scripts\koExternalTemplateEngine_all.js" />
     <Content Include="scripts\koExternalTemplateEngine_all.min.gz.js" />
     <Content Include="scripts\koExternalTemplateEngine_all.min.js" />

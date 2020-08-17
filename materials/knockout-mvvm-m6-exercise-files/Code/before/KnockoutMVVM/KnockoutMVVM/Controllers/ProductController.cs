@@ -22,7 +22,7 @@ namespace KnockoutMVVM.Controllers
             var message = "Failed PlaceOrder";
             if (cartItems == null) return Json(new { message });
 
-            double total = cartItems.Sum(cartItem => cartItem.Quantity*cartItem.Product.SalePrice);
+            double total = cartItems.Sum(cartItem => cartItem.Quantity * cartItem.Product.SalePrice);
             message = string.Format("saved {0} items for a total of ${1}", cartItems.Count, total);
             return Json(new { message }, JsonRequestBehavior.AllowGet);
         }

@@ -52,16 +52,16 @@
         self.isGuitar = ko.computed(function () {
             return this.category() ? this.category().id() === 1 : false;
         }, self),
-        self.shortDesc = ko.computed(function () {
-            return this.model() ? this.model().brand() + " " + this.model().name() : "";
-        }, self),
-        self.photoUrl = ko.computed(function () {
-            return photoPath + this.photo();
-        }, self),
-        self.rating.subscribe(function () {
-            this.stateHasChanged(true);
-        }, self),
-        self.stateHasChanged = ko.observable(false);
+            self.shortDesc = ko.computed(function () {
+                return this.model() ? this.model().brand() + " " + this.model().name() : "";
+            }, self),
+            self.photoUrl = ko.computed(function () {
+                return photoPath + this.photo();
+            }, self),
+            self.rating.subscribe(function () {
+                this.stateHasChanged(true);
+            }, self),
+            self.stateHasChanged = ko.observable(false);
     };
 
     my.CartItem = function () {
@@ -100,33 +100,43 @@
                 { desc: "custom binding handler: jqDialog" }]
         },
             dialogOptions = new my.DialogOptions(),
+            accept = function () {
+                //relays to the dialogOptions.
+                dialogOptions().accept();
+                //could do stuff here
+            },
+            cancel = function () {
+                //relays to the dialogOptions.
+                dialogOptions().cancel();
+                //could do stuff here
+            },
             defaultAnimationSpeed = 500,
             products = ko.observableArray([]),
             selectedProduct = ko.observable(),
-            sortFunction = function(a, b) {
+            sortFunction = function (a, b) {
                 return a.shortDesc().toLowerCase() > b.shortDesc().toLowerCase() ? 1 : -1;
             },
-            selectProduct = function(p) {
+            selectProduct = function (p) {
                 selectedProduct(p);
             },
-            hideItem = function(elem) {
+            hideItem = function (elem) {
                 if (elem.nodeType === 1) {
-                    var effect = function() {
+                    var effect = function () {
                         return $(elem).fadeOut(defaultAnimationSpeed);
                     };
                     effect();
                 }
             },
-            showItem = function(elem) {
+            showItem = function (elem) {
                 if (elem.nodeType === 1) {
-                    var effect = function() {
+                    var effect = function () {
                         return $(elem).hide().fadeIn(defaultAnimationSpeed);
                     };
                     effect();
                 }
             },
             shoppingCart = ko.observableArray([]),
-            addToCart = function(product) {
+            addToCart = function (product) {
                 if (!shoppingCart().objectInArray(product, "product")) {
                     var cartItem = new my.CartItem()
                         .product(product)
@@ -135,41 +145,49 @@
                     products.remove(product);
                 }
             },
-            removeFromCart = function(cartItem) {
+            removeFromCart = function (cartItem) {
                 if (shoppingCart().indexOf(cartItem) > -1) {
                     products.push(cartItem.product());
                     shoppingCart.remove(cartItem);
                 }
             },
-            grandTotal = ko.computed(function() {
+            grandTotal = ko.computed(function () {
                 var total = 0;
-                $.each(shoppingCart(), function() {
+                $.each(shoppingCart(), function () {
                     total += this.extPrice();
                 });
                 return total;
             }),
-            loadProducts = function() {
-                var json = my.sampleData.data.Products;
+            loadProductsCallback = function (json) {
                 $.each(json, function (i, p) {
                     products.push(new my.Product(selectedProduct)
-                            .id(p.Id)
-                            .salePrice(p.SalePrice)
-                            .photo(p.Photo)
-                            .category(new my.Category()
+                        .id(p.Id)
+                        .salePrice(p.SalePrice)
+                        .photo(p.Photo)
+                        .category(new my.Category()
                             .id(p.Category.Id)
                             .name(p.Category.Name)
-                                )
-                            .model(new my.Model()
+                        )
+                        .model(new my.Model()
                             .id(p.Model.Id)
                             .name(p.Model.Name)
                             .brand(p.Model.Brand)
-                                )
-                            .description(p.Description)
-                            .rating(p.Rating)
-                            .stateHasChanged(false)
+                        )
+                        .description(p.Description)
+                        .rating(p.Rating)
+                        .stateHasChanged(false)
                     );
                 });
                 products.sort(sortFunction);
+            },
+            loadProducts = function () {
+                my.shoppingDataService.getSaleItems(my.vm.loadProductsCallback);
+            },
+            placeOrderCallback = function (json) {
+                dialogOptions.title("Place Order").text(json.message).open(true);
+            },
+            placeOrder = function () {
+                my.shoppingDataService.placeOrder(shoppingCart, my.vm.placeOrderCallback);
             };
         return {
             metadata: metadata,
@@ -177,15 +195,18 @@
             selectedProduct: selectedProduct,
             selectProduct: selectProduct,
             products: products,
-            loadProducts: loadProducts,
             hideItem: hideItem,
             showItem: showItem,
             shoppingCart: shoppingCart,
             addToCart: addToCart,
             removeFromCart: removeFromCart,
-            grandTotal: grandTotal
+            grandTotal: grandTotal,
+            loadProducts: loadProducts,
+            loadProductsCallback: loadProductsCallback,
+            placeOrder: placeOrder,
+            placeOrderCallback: placeOrderCallback
         };
-    } ();
+    }();
 
 
     my.vm.loadProducts();

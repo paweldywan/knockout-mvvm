@@ -37,21 +37,21 @@
         self.isGuitar = ko.computed(function () {
             return this.category() ? this.category().id() === 1 : false;
         }, self),
-        //this.shortDescription = ko.observable();
-        self.shortDesc = ko.computed(function () {
-            return this.model() ? this.model().brand() + " " + this.model().name() : "";
-        }, self),
-        self.photoUrl = ko.computed(function () {
-            return photoPath + this.photo();
-        }, self),
-        self.rating.subscribe(function () {
-            this.stateHasChanged(true);
-        }, self),
-        self.stateHasChanged = ko.observable(false),
-        self.save = function () {
-            alert("New rating of " + self.rating() + " saved");
-            self.stateHasChanged(false);
-        };
+            //this.shortDescription = ko.observable();
+            self.shortDesc = ko.computed(function () {
+                return this.model() ? this.model().brand() + " " + this.model().name() : "";
+            }, self),
+            self.photoUrl = ko.computed(function () {
+                return photoPath + this.photo();
+            }, self),
+            self.rating.subscribe(function () {
+                this.stateHasChanged(true);
+            }, self),
+            self.stateHasChanged = ko.observable(false),
+            self.save = function () {
+                alert("New rating of " + self.rating() + " saved");
+                self.stateHasChanged(false);
+            };
     };
 
     // The ViewModel
@@ -73,7 +73,7 @@
                 { desc: "$root and $parent" },
                 { desc: "foreach" },
                 { desc: "if" },
-                { desc: "custom binding handler: fadeVisible & starRating"}]
+                { desc: "custom binding handler: fadeVisible & starRating" }]
         },
             products = ko.observableArray([]),
             selectedProduct = ko.observable(),
@@ -92,7 +92,7 @@
                         return $(elem).fadeOut(1000);
                     };
                     effect();
-                    
+
                     //.promise().done(function () { alert('removed!'); });
 
                     //$.when(effect()).done(function () { alert('removed!'); });
@@ -117,18 +117,18 @@
                         .salePrice(p.SalePrice)
                         .photo(p.Photo)
                         .category(new my.Category()
-                        .id(p.Category.Id)
-                        .name(p.Category.Name)
-                            )
+                            .id(p.Category.Id)
+                            .name(p.Category.Name)
+                        )
                         .model(new my.Model()
-                        .id(p.Model.Id)
-                        .name(p.Model.Name)
-                        .brand(p.Model.Brand)
-                            )
+                            .id(p.Model.Id)
+                            .name(p.Model.Name)
+                            .brand(p.Model.Brand)
+                        )
                         .description(p.Description)
                         .rating(p.Rating)
                         .stateHasChanged(false)
-                );
+                    );
                 });
                 //products().sort(sortFunction);
             };
@@ -141,7 +141,7 @@
             removeProduct: removeProduct,
             hideProducts: hideProducts
         };
-    } ();
+    }();
 
     my.vm.loadProducts();
     ko.applyBindings(my.vm);
@@ -149,11 +149,21 @@
     (function () {
         var itemSelector = "ul li.mediumProductSquares";
         // .on()
+        $(itemSelector).on("click", "div.closeIcon", function () {
+            my.vm.removeProduct(ko.dataFor(this));
+        });
 
-        // .delegate()
+        //// .delegate()
+        //$(itemSelector).delegate("div.closeIcon", "click", null, function () {
+        //    my.vm.removeProduct(ko.dataFor(this));
+        //});
 
         // select the entire item
-        
-
+        $(itemSelector).on("click", function () {
+            var selProduct = ko.dataFor(this);
+            var selContext = ko.contextFor(this);
+            var vm = selContext.$root;
+            alert(selProduct.shortDesc());
+        });
     })();
 });
